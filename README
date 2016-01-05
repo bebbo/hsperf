@@ -20,8 +20,9 @@ see LICENSE.txt
 
 == VERSION ==
 
-2016-01-04: V2
+2016-01-05: V2
 * added ".min 0" to each counter to avoid spikes
+* changed COUNTER to DERIVED 
 
 2016-01-04: V1
 

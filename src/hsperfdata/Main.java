@@ -200,7 +200,7 @@ public class Main {
 					for (final String prop : orderedProps) {
 						System.out.println(name + "_" + prop + ".label " + name + " " + prop);
 						if (counters.contains(prop)) {
-							System.out.println(name + "_" + prop + ".type COUNTER");
+							System.out.println(name + "_" + prop + ".type DERIVE");
 							System.out.println(name + "_" + prop + ".min 0");
 						}
 					}
