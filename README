@@ -1,0 +1,50 @@
+hsperfdata - a munin plugin reading the hsperfdata to display JVM runtime infos
+Copyright (C) 2016  Stefan "Bebbo" Franke - stefan@franke.ms
+
+== LICENSE ==
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+see LICENSE.txt
+
+== VERSION ==
+
+2016-01-04: V2
+* added ".min 0" to each counter to avoid spikes
+
+2016-01-04: V1
+
+== USAGE ==
+
+1. unzip the archive content to /opt/hsperf
+2. adjust the folders, graphs and properties in the file plugins/hsperf
+3. copy the files from plugin-conf.d and plugins to the corresponding folders
+   in /etc/munin
+4. restart munin-node (systemctl restart munin-node)
+
+== WHAT THIS PLUGIN DOES ==
+
+This plugin reads the hsperfdata files of the specified folders: (/tmp/hsperfdata_username/)
+If there are more instances per user then the process id will appear in the graph legend.
+Nicest results are achieved if every jvm instance is run with an unqiue user,
+because there is no changing process id.
+
+== HINTS ==
+
+To get a list of all available properties, run the script
+  /opt/hsperf/plugins/hsperf --showprops
+and it will display all available properties.
+
+
+

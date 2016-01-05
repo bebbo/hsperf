@@ -1,0 +1,71 @@
+#!/bin/sh
+# -*- sh -*-
+
+: <<EOF
+
+=head1 NAME
+
+hsperf - Plugin to monitor JVMs
+
+=head1 CONFIGURATION
+
+The following configuration parameters are used by this plugin
+
+ [hsperf*]
+
+=head2 DEFAULT CONFIGURATION
+
+ [hsperf*]
+
+=head1 AUTHORS
+
+Bebbo
+
+=head1 LICENSE
+
+GPLv2
+
+=head1 BUGS
+
+
+=head1 MAGIC MARKERS
+
+ #%# family=auto
+ #%# capabilities=autoconf
+
+=cut
+
+EOF
+
+if [ "$1" = "autoconf" ]; then
+        echo yes
+        exit 0
+fi
+
+MC=`mount | grep -c /tmp`
+if [ $MC -ne 1 ]; then
+  umount /tmp
+fi
+
+FOLDERS="  /tmp/hsperfdata_domain01"
+FOLDERS+=" /tmp/hsperfdata_domain02"
+FOLDERS+=" /tmp/hsperfdata_bejy"
+FOLDERS+=" /tmp/hsperfdata_bebbo"
+
+GRAPHS="threads|JVM Threads|number of threads|threadCount,threadMax,threadsStarted"
+GRAPHS+='" "'
+GRAPHS+="memory|JVM Memory|bytes|old,eden,s0,s1"
+
+PROPS="  threadCount=java.threads.live"
+PROPS+=" threadMax=java.threads.livePeak"
+PROPS+=" threadsStarted+=java.threads.started"
+PROPS+=" old=sun.gc.generation.1.space.0.used"
+PROPS+=" eden=sun.gc.generation.0.space.0.used"
+PROPS+=" s0=sun.gc.generation.0.space.1.used"
+PROPS+=" s1=sun.gc.generation.0.space.2.used"
+
+eval java -jar /opt/hsperf/hsperfdata.jar $* $FOLDERS '"'$GRAPHS'"' $PROPS
+
+if [ $MC -ne 1 ]; then
+  mount /tmp
+fi
